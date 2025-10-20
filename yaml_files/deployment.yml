@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: addtasktodo
-        image: manoacr616312.azurecr.io/addtasktodo:v2
+        image: manoacr616312.azurecr.io/addtasktodo:v3
         ports:
         - containerPort: 8000
         env: 
