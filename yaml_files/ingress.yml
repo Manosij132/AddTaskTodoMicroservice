@@ -1,0 +1,18 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: addtasktodoingress
+spec:
+  rules:
+    - host: addtasktodo.mano.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: addtasktodoservice
+                port:
+                  number: 80
+            path: "/"
+            pathType: Prefix
+  ingressClassName: nginx
+

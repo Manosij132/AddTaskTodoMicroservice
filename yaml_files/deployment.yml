@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: addtasktododeployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: addtasktodo
+  template:
+    metadata:
+      labels:
+        app: addtasktodo
+    spec:
+      containers:
+      - name: addtasktodo
+        image: manoacr616312.azurecr.io/addtasktodo:v1
+        ports:
+        - containerPort: 80
