@@ -17,6 +17,6 @@ spec:
         image: manoacr616312.azurecr.io/addtasktodo:v3
         ports:
         - containerPort: 8000
-        env: 
-        - name: CONNECTION_STRING
-          value: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:todosqlserver132.database.windows.net,1433;Database=sqldbtodo;Uid=manosij;Pwd=Password@123;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+        # env: 
+        # - name: CONNECTION_STRING
+        #   value: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:todosqlserver132.database.windows.net,1433;Database=sqldbtodo;Uid=manosij;Pwd=Password@123;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
