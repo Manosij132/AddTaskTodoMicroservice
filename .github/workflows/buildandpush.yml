@@ -1,4 +1,4 @@
-name: build and push AddTask
+name: build-and-push-addtasktodo
 
 on:
   push:
@@ -10,31 +10,35 @@ permissions:
   contents: read      
 
 jobs:
-  build-tag-push:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Azure Login
-        uses: Azure/login@v2.3.0
+        uses: azure/login@v2
         with:
           client-id: acb3d991-a6f1-4d2a-adae-cf23331bcdfa
           tenant-id: ce2f68bd-57d5-44f2-ab38-0c7ced51b46b
           subscription-id: 30795018-f759-40ff-9c87-7d73f6cc4d87
 
-      - name: Image Build
-        run: docker buildx build --platform linux/amd64 -t addtasktodo:v4 --load .
+      - name: Build (AMD64) and Load
+        run: |
+          docker buildx build \
+            --platform linux/amd64 \
+            -t addtasktodo:v10 \
+            --load .
 
-      - name: ACR login
-        run: az acr login --name manoclusterregistry
+      - name: ACR Login
+        run: az acr login -n manoclusterregistry
 
-      - name: Image Tag
-        run: docker tag addtasktodo:v4 manoclusterregistry.azurecr.io/addtasktodo:v4
-        
-      - name: ACR Push
-        run: docker push manoclusterregistry.azurecr.io/addtasktodo:v4
-      
+      - name: Tag Image
+        run: docker tag addtasktodo:v10 manoclusterregistry.azurecr.io/addtasktodo:v10
 
-  
+      - name: Push to ACR
+        run: docker push manoclusterregistry.azurecr.io/addtasktodo:v10
