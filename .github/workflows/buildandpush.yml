@@ -27,18 +27,19 @@ jobs:
           tenant-id: ce2f68bd-57d5-44f2-ab38-0c7ced51b46b
           subscription-id: 30795018-f759-40ff-9c87-7d73f6cc4d87
 
-      - name: Build (AMD64) and Load
+      - name: Build AMD64 + Load
         run: |
           docker buildx build \
             --platform linux/amd64 \
-            -t addtasktodo:v10 \
-            --load .
+            -t addtasktodo:v11 \
+            . \
+            --load
 
       - name: ACR Login
         run: az acr login -n manoclusterregistry
 
       - name: Tag Image
-        run: docker tag addtasktodo:v10 manoclusterregistry.azurecr.io/addtasktodo:v10
+        run: docker tag addtasktodo:v11 manoclusterregistry.azurecr.io/addtasktodo:v11
 
-      - name: Push to ACR
-        run: docker push manoclusterregistry.azurecr.io/addtasktodo:v10
+      - name: Push Image
+        run: docker push manoclusterregistry.azurecr.io/addtasktodo:v11
